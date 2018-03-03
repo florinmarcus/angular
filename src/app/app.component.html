@@ -4,12 +4,12 @@
         <mat-card-title>Regions</mat-card-title>
       <mat-nav-list>
         <mat-list-item *ngFor="let region of regions">
-          <p matLine>
-            <span> {{region.regionName}} </span>
+          <p matLine (click)="onEditRegion(region)">
+            <span > {{region.regionName}} </span>
             <span>&nbsp;</span>
             <span > ( {{region.regionId}} ) </span>
-           
-            <span>&nbsp;</span>
+
+           <span>&nbsp;</span>
             <span>
               <button  mat-button (click)="onDeleteRegion(region.regionId)">Delete</button>
             </span>
@@ -17,18 +17,22 @@
         </mat-list-item>
       </mat-nav-list>
     </mat-card>
+
+    <br/>
     
     <mat-card>
-      <mat-card-title>Add new Region</mat-card-title>
-      <form class="example-form" (ngSubmit)="onAddRegion(f)" #f="ngForm">
+      <mat-card-title>{{formTitle}}</mat-card-title>
+      <form class="example-form" (ngSubmit)="onSaveRegion(f)" #f="ngForm">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Region Id" name="regionId" type="number" ngModel>
+          <input matInput placeholder="Region Id" name="regionId" type="number" ngModel required [readonly]="regionIdDisabled">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Region Name" name="regionName" ngModel>
+          <input matInput placeholder="Region Name" name="regionName" ngModel required>
         </mat-form-field>
         <button mat-button type="submit">Save</button>
+        <button mat-button type="reset" (click)="onCancel()" >Cancel</button>
+       
       </form>
     </mat-card>
     <mat-divider></mat-divider>

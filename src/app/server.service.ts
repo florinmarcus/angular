@@ -11,11 +11,32 @@ export class ServerService {
   constructor(private http: Http) {};
 
     addRegion(region  ) {
-        return this.http.post('http://localhost:8081/regions', region);
+        return this.http.post('http://localhost:8081/regions', region)
+        .catch(
+          (error: Error) =>  {
+            console.log("addRegion went wrong");
+            return Observable.throw(error);
+    
+          }
+          ) 
     }
 
     deleteRegion(regionId: number  ) {
-      return this.http.delete('http://localhost:8081/regions/' + regionId);
+      return this.http.delete('http://localhost:8081/regions/' + regionId)
+      .catch(
+        (error: Error) =>  {
+          console.log(error.message);
+          if(error.toString().indexOf("ORA-02292") != null) {
+            return Observable.throw("This region is not empty, can't be deleted.");
+          }
+          else
+          return Observable.throw(error);
+          
+
+
+  
+        }
+        ) 
   }
 
 
