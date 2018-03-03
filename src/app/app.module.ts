@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from './modules/material.module';
 import { AppComponent } from './app.component';
-import { ServerService } from './server.service';
+import { RegionService } from './region.service';
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import { ServerService } from './server.service';
     MaterialModule,
     CommonModule
   ],
-  providers: [ServerService],
+  providers: [RegionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ServerService } from './server.service';
+import { RegionService } from './region.service';
 import { Response } from '@angular/http';
 import { NgForm } from '@angular/forms';
 import { MaterialModule } from './modules/material.module';
@@ -22,13 +22,9 @@ export class AppComponent implements OnInit {
   //true on Update Form
 
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
+  
 
-  constructor(private serverService: ServerService, public snackBar: MatSnackBar) {
+  constructor(private regionService: RegionService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -48,7 +44,7 @@ export class AppComponent implements OnInit {
 
     var newRegion = { "regionName": form.value.regionName, "regionId": form.value.regionId };
 
-    this.serverService.addRegion(newRegion)
+    this.regionService.addRegion(newRegion)
       .subscribe(
       (response) => form.resetForm(),
       (error) => this.openSnackBar(error, null)
@@ -85,7 +81,7 @@ export class AppComponent implements OnInit {
   }
 
   loadData() {
-    this.serverService.getRegions()
+    this.regionService.getRegions()
       .subscribe(
       (regions: any[]) => this.regions = regions['regions'],
       (error) => console.log(error)
@@ -94,7 +90,7 @@ export class AppComponent implements OnInit {
 
   onDeleteRegion(regionId: number) {
     console.log('delete pressed' + regionId);
-    this.serverService.deleteRegion(regionId)
+    this.regionService.deleteRegion(regionId)
       .subscribe(
       (response) => this.loadData(),
       (error) => this.openSnackBar(error, null)
@@ -119,7 +115,16 @@ export class AppComponent implements OnInit {
     return this.formMode == "update";
   }
 
-
+  /**
+   * Programatically shows the error messages as bottom drawer message
+   * @param message 
+   * @param action 
+   */
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 }
 
 
