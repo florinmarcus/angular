@@ -7,12 +7,14 @@ import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from './modules/material.module';
 import { AppComponent } from './app.component';
+import { RegionsComponent } from './regions/regions.component';
 import { RegionService } from './region.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RegionsComponent
   ],
 
   imports: [
